@@ -5,7 +5,7 @@
   <meta:directives namespace="http://namespaces.zope.org/collective.django">
 
     <meta:directive
-        name="init"
+        name="initialize"
         schema=".directives.IInitialize"
         handler=".directives.initialize"
         />

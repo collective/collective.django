@@ -40,7 +40,7 @@ class TestSimple(unittest.TestCase):
         transaction.commit()
         self.assertItemsEqual(
             ["Eric", "Michael", "Graham", "Terry", "Terry", "John"],
-            [ m.name for m in Person.objects.all() ]
+            [ m.first_name for m in Person.objects.all() ]
         )
 
     def test_abort(self):

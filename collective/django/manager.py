@@ -40,6 +40,7 @@ class DjangoDataManager(object):
     def django_t_begin(self):
         if not self.connection.is_managed():
             self.connection.enter_transaction_management()
+            self.connection.managed(True)
 
     def abort(self, transaction):
         self.tpc_abort(transaction)
@@ -75,7 +76,7 @@ class DjangoDataManager(object):
             self.connection.close()
 
 
-def link(sender, connection):
+def link(signal, sender, connection):
     """Whenever a connection is created, we link it to the Zope session,
     basically turning on transaction management at Django level and then
     joining in with the Zope one
