@@ -16,7 +16,6 @@ setup(
     zip_safe = False,
     install_requires = [
         'distribute',
-        'Django',
-        'Plone'
+        'Django'
     ]
 )
