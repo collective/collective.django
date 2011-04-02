@@ -45,7 +45,14 @@ Then just add the egg to your buildout, like this::
     ...
     eggs =
         ...
-        collective.django.db
+        collective.django
+
+The package itself relies on ``z3c.autoinclude`` to load its ZCML when Plone is
+pulled up. In case this does not work, include a::
+
+    <include package="collective.django" />
+
+Within your package ZCML.
 
 And whenever you will import your Django models from Plone, the transaction
 will be managed by Zope.
