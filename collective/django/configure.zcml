@@ -1,0 +1,6 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:django="http://namespaces.zope.org/collective.django">
+  <include file="meta.zcml" />
+  <django:initialize component=".manager.attach_signals" />
+</configure>

@@ -1,0 +1,16 @@
+# Ignore python compiled files
+*.py[co]
+# Ignore eggs
+*.egg-info
+dist
+# Ignore backups
+*~
+.*.swp
+\#*
+# Ignore buildout
+bin
+parts
+eggs
+develop-eggs
+var
+.installed.cfg
