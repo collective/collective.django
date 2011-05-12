@@ -71,4 +71,4 @@ And the tests should be ran.
 
 .. _Django: http://www.djangoproject.com/
 .. _Plone: http://www.plone.org/
-.. `Django buildout`: http://jacobian.org/writing/django-apps-with-buildout/
+.. _`Django buildout`: http://jacobian.org/writing/django-apps-with-buildout/
