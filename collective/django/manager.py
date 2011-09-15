@@ -4,8 +4,15 @@ from zope.interface import implements
 from transaction.interfaces import ISavepointDataManager, IDataManagerSavepoint
 from transaction import manager
 
-from django.db.backends.signals import connection_created
-from django.db import connections
+import os
+if 'DJANGO_SETTINGS_MODULE' not in os.environ:
+    DJANGO_ENABLED = False
+    logging.info("No DJANGO_SETTINGS_MODULE found. " + \
+                      "Skipping configuration")
+else:
+    from django.db.backends.signals import connection_created
+    from django.db import connections
+    DJANGO_ENABLED = True
 
 
 # BBB: we might want to commit them?
@@ -66,7 +73,10 @@ class DjangoDataManager(object):
         self.connection.set_clean()
 
     def sortKey(self):
-        return "~django:%d" % self.connection.alias
+        try:
+            return "~django:%d" % self.connection.alias
+        except:
+            return "~django:%s" % self.connection.alias
 
     def savepoint(self):
         return DjangoDataSavePoint(self.connection)
@@ -76,7 +86,7 @@ class DjangoDataManager(object):
             self.connection.close()
 
 
-def link(signal, sender, connection):
+def link(signal, sender, connection, **kwargs):
     """Whenever a connection is created, we link it to the Zope session,
     basically turning on transaction management at Django level and then
     joining in with the Zope one
@@ -92,6 +102,8 @@ def link(signal, sender, connection):
 
 
 def attach_signals():
+    if not DJANGO_ENABLED:
+        return
     global link
     connection_created.connect(link)
     # Link all connections that might have popped up while we were
