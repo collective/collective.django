@@ -45,9 +45,7 @@ class DjangoDataManager(object):
         self.django_t_begin()
 
     def django_t_begin(self):
-        if not self.connection.is_managed():
-            self.connection.enter_transaction_management()
-            self.connection.managed(True)
+        self.connection.enter_transaction_management(True)
 
     def abort(self, transaction):
         self.tpc_abort(transaction)
@@ -58,7 +56,6 @@ class DjangoDataManager(object):
 
     def commit(self, transaction):
         assert self.connection is not None
-        assert self.connection.is_managed()
 
     def tpc_vote(self, transaction):
         if self.connection.is_dirty():
